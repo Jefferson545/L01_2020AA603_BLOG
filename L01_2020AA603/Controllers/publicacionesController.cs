@@ -34,7 +34,7 @@ namespace L01_2020AA603.Controllers
         // metodo guardar nuevo registro
         [HttpPost]
         [Route("Add")]
-        public IActionResult GuardarEquipo([FromBody] publicaciones publi)
+        public IActionResult Guardarpubli([FromBody] publicaciones publi)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace L01_2020AA603.Controllers
         // metodo actualizar
         [HttpPut]
         [Route("actualizar/{id}")]
-        public IActionResult actualizarequipo(int id, [FromBody] publicaciones publicacionesModificar)
+        public IActionResult actualizarpubli(int id, [FromBody] publicaciones publicacionesModificar)
         {
             publicaciones? publi = (from e in _blogDBContext.publicaciones
                                  where e.publicacionId == id
@@ -77,27 +77,27 @@ namespace L01_2020AA603.Controllers
         // metodo eliminar
         [HttpDelete]
         [Route("eliminar/{id}")]
-        public IActionResult EliminarEquipos(int id)
+        public IActionResult Eliminarpubli(int id)
         {
             publicaciones? publi = (from e in _blogDBContext.publicaciones
                                  where e.publicacionId == id
                                  select e).FirstOrDefault();
             if (publi == null) return NotFound();
 
-            return Ok(publi);
+            
             _blogDBContext.publicaciones.Attach(publi);
             _blogDBContext.publicaciones.Remove(publi);
             _blogDBContext.SaveChanges();
             return Ok(publi);
         }
-        // metodo mostrar usuarios por nombre y apelldio
+        // metodo mostrar las publicaciones del usuario
       
         [HttpGet]
-        [Route("find/{rol}")]
-        public IActionResult usuariosrol(int rol)
+        [Route("find/{usuarioid}")]
+        public IActionResult usuariosrol(int usuarioid)
         {
             List<publicaciones> publi = (from e in _blogDBContext.publicaciones
-                                      where e.publicacionId == rol
+                                      where e.usuarioId == usuarioid
                                       select e).ToList();
             if (publi == null) return NotFound();
 

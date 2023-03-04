@@ -85,13 +85,13 @@ namespace L01_2020AA603.Controllers
                                select e).FirstOrDefault();
             if (usuario == null) return NotFound();
 
-            return Ok(usuario);
+            
             _blogDBContext.usuarios.Attach(usuario);
             _blogDBContext.usuarios.Remove(usuario);
             _blogDBContext.SaveChanges();
             return Ok(usuario);
         }
-        // metodo mostrar usuarios por nombre y apelldio
+        // método mostrar usuarios por nombre y apelldio
         [HttpGet]
         [Route("find/{nombre}/{apellido}")]
         public IActionResult usuariosnom(string nombre , string apellido)
@@ -104,6 +104,7 @@ namespace L01_2020AA603.Controllers
             return Ok(usuario);
         }
         [HttpGet]
+        // buscar por rol
         [Route("find/{rol}")]
         public IActionResult usuariosrol(int rol)
         {
